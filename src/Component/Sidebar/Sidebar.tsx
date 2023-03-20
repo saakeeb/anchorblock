@@ -9,15 +9,16 @@ interface SidebarLink {
     to: string;
     aria_label: string;
     name: string;
+    icon?: string | undefined;
 }
- 
+
 const Sidebar: React.FC = () => {
     return (
-        <div className='flex w-100 '>
-            <Link className='w-10 h-3' to='/' aria-label='Link to home page'>
+        <div className='flex flex-col w-48 mx-4 my-4 h-screen'>
+            <Link className='w-100' to='/' aria-label='Link to home page'>
                 <img className='' src={StackLogo} alt="Stack logo" />
             </Link>
-            <nav className='h-4 mx-2'>
+            <nav className='flex flex-col'>
                 {/* <NavLink
                     exact='true'
                     activeclassname="active"
@@ -45,17 +46,18 @@ const Sidebar: React.FC = () => {
                 </NavLink> */}
                 {
                     SidebarLinkData.map((data: SidebarLink) => (
-                    <NavLink
-                        key={data.name}
-                        // exact={data.exact}
-                        // activeClassName={data.activeClassName}
-                        to={data.to}
-                        aria-label={data.aria_label}
-                        end
-                        className=""
-                    >
-                        {data.name}
-                    </NavLink>
+                        <NavLink
+                            key={data.name}
+                            // exact={data.exact}
+                            // activeClassName={data.activeClassName}
+                            to={data.to}
+                            aria-label={data.aria_label}
+                            end
+                            className="[&.active]:bg-link-bg [&.active]:rounded-xl [&.active]:shadow-xl h-12 flex items-center"
+                        >
+                            <img src={data.icon} alt={data.name} className='mx-3' />
+                            <p className='text-link-text'>{data.name}</p>
+                        </NavLink>
                     ))
                 }
             </nav>

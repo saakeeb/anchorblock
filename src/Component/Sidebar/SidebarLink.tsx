@@ -1,3 +1,7 @@
+import dashboardIcon from '../../assets/dashboard icon.svg';
+import usersIcon from '../../assets/user icon.svg';
+import invoiceIcon from '../../assets/invoice icon.svg';
+
 const sidebarLink = [
     {
         exact: true,
@@ -5,7 +9,8 @@ const sidebarLink = [
         to: "/",
         aria_label: "Link to home page dashboard",
         // end: true,
-        name: "Dashboard"
+        name: "Dashboard",
+        icon: dashboardIcon,
     },
     {
         exact: true,
@@ -13,7 +18,8 @@ const sidebarLink = [
         to: "/users",
         aria_label: "Link to users page",
         // end: false,
-        name: "Users"
+        name: "Users",
+        icon: usersIcon,
     },
     {
         exact: true,
@@ -21,7 +27,8 @@ const sidebarLink = [
         to: "/sales",
         aria_label: "Link to sales page",
         // end: false,
-        name: "Sales"
+        name: "Sales",
+        icon: invoiceIcon,
     }
 ];
 

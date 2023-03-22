@@ -9,7 +9,6 @@ import eyeOpenIcon from '../../assets/eye open icon.svg';
 import eyeCloseIcon from '../../assets/eye close icon.svg';
 import LoginSidebar from '../Sidebar/LoginSidebar';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { Credentials, signInUser } from '../Features/AuthSlice';
 import { SignInFormValues } from './SignInFormValues';
 import { ThunkDispatch } from "@reduxjs/toolkit";
@@ -17,7 +16,6 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 const Signin = () => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-    const isAuthenticated = useSelector((state: any) => state?.username?.isAuthenticated);
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
@@ -28,7 +26,7 @@ const Signin = () => {
 
     const onSubmit = async (credentials: Credentials) => {
         try {
-            await dispatch(signInUser(credentials));
+            await dispatch(signInUser(credentials)); //dispatch to store
             setEmail("");
             setPassword("");
         } catch (error) {

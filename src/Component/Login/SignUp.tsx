@@ -29,7 +29,7 @@ const SignUp = () => {
 
     const onSubmit = async (credentials: Credentials) => {
         try {
-            await dispatch(signUpUser(credentials));
+            await dispatch(signUpUser(credentials)); //dispatch to store
             setEmail("");
             setPassword("");
             setName("");

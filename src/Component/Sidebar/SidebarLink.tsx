@@ -8,7 +8,6 @@ const sidebarLink = [
         activeClassName: "active",
         to: "/",
         aria_label: "Link to home page",
-        // end: true,
         name: "Dashboard",
         icon: dashboardIcon,
     },
@@ -17,7 +16,6 @@ const sidebarLink = [
         activeClassName: "active",
         to: "/users",
         aria_label: "Link to users page",
-        // end: false,
         name: "Users",
         icon: usersIcon,
     },
@@ -26,7 +24,6 @@ const sidebarLink = [
         activeClassName: "active",
         to: "/sales",
         aria_label: "Link to sales page",
-        // end: false,
         name: "Sales",
         icon: invoiceIcon,
     }

@@ -40,7 +40,7 @@ const fetchApiData = async (url: string, body: Credentials) => {
     return await res.json();
 };
 
-export const signUpUser = createAsyncThunk('username/signUpUser', async (credentials: Credentials) => {
+export const signUpUser = createAsyncThunk('username/signUpUser', async (credentials: Credentials) => { //first unique arument with credential type
     const response = await fetchApiData('https://reqres.in/api/register', credentials);
     return response;
 });
@@ -77,6 +77,7 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+                        // signupuser
             .addCase(signUpUser.pending, (state) => {
                 state.loading = true;
             })
@@ -93,6 +94,7 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message || 'Something went wrong';
             })
+                        //signinuser
             .addCase(signInUser.pending, (state) => {
                 state.loading = true;
             })

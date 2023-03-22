@@ -10,7 +10,7 @@ const Layout = () => {
                 <div className="bg-white shadow lg:w-30 mx-auto h-screen">
                     <Sidebar />
                 </div>
-                <div className="container mx-auto mt-12">
+                <div className="container mx-auto mt-4">
                     <Outlet />
                 </div>
             </div>

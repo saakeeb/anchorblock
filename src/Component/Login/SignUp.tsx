@@ -17,13 +17,11 @@ type FormValues = {
 
 const SignUp = () => {
     let isFetching = true;
-    // const { register, handleSubmit } = useForm<FormValues>();
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
     const [isVisible, setIsVisible] = useState(false);
 
     const handleVisibility = () => {
         setIsVisible(!isVisible);
-        console.log("clilllllllllllll");
     };
 
     const onSubmit = (data: any) => {

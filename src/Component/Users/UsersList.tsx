@@ -70,7 +70,7 @@ const UsersList: React.FC = (): JSX.Element => {
                     <ul className="list-style-none flex">
                         {
                             paginationButton.length > 0 &&
-                            paginationButton.map(data => <li>
+                            paginationButton.map(data => <li key={data.name}>
                                 <button
                                     aria-label={data.name}
                                     className={`relative font-semibold block rounded py-1.5 px-3 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 ${apiPage === data.active ? 'bg-blue-500 text-white' : ''}`}

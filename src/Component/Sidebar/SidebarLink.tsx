@@ -7,7 +7,7 @@ const sidebarLink = [
         exact: true,
         activeClassName: "active",
         to: "/",
-        aria_label: "Link to home page dashboard",
+        aria_label: "Link to home page",
         // end: true,
         name: "Dashboard",
         icon: dashboardIcon,

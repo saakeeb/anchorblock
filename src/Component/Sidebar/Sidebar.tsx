@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import StackLogo from '../../assets/Stack Logo.svg';
+import { NavLink } from 'react-router-dom';
 import SidebarLinkData from './SidebarLink';
+import NavigationLogo from './NavigationLogo';
 
 interface SidebarLink {
     exact: boolean;
@@ -14,10 +14,9 @@ interface SidebarLink {
 
 const Sidebar: React.FC = () => {
     return (
-        <div className='flex flex-col w-48 mx-4 my-4 h-screen'>
-            <Link className='w-100' to='/' aria-label='Link to home page'>
-                <img className='' src={StackLogo} alt="Stack logo" />
-            </Link>
+        <div className='flex flex-col lg:mx-4 min-[320px]:mx-2 my-4 h-auto'>
+            <NavigationLogo />
+            <p className='my-2 ml-3 text-link-text text-xs'>Pages</p>
             <nav className='flex flex-col'>
                 {/* <NavLink
                     exact='true'
@@ -48,15 +47,13 @@ const Sidebar: React.FC = () => {
                     SidebarLinkData.map((data: SidebarLink) => (
                         <NavLink
                             key={data.name}
-                            // exact={data.exact}
-                            // activeClassName={data.activeClassName}
                             to={data.to}
                             aria-label={data.aria_label}
                             end
                             className="[&.active]:bg-link-bg [&.active]:rounded-xl [&.active]:shadow-xl h-12 flex items-center"
                         >
-                            <img src={data.icon} alt={data.name} className='mx-3' />
-                            <p className='text-link-text'>{data.name}</p>
+                            <img src={data.icon} alt={data.name} className='lg:mx-3 min-[320px]:mx-2 mr-0' />
+                            <p className='text-link-text text-sm'>{data.name}</p>
                         </NavLink>
                     ))
                 }

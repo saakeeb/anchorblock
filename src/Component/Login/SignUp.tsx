@@ -8,27 +8,34 @@ import classNames from 'classnames';
 import eyeOpenIcon from '../../assets/eye open icon.svg';
 import eyeCloseIcon from '../../assets/eye close icon.svg';
 import LoginSidebar from '../Sidebar/LoginSidebar';
-
-type FormValues = {
-    username: string
-    email: string;
-    password: string;
-};
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Credentials, signUpUser } from '../Features/AuthSlice';
+import { SignUpFormValues } from './SignUpFormValues';
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const SignUp = () => {
-    let isFetching = true;
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-    const [isVisible, setIsVisible] = useState(false);
+    const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormValues>();
+    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const isAuthenticated = useSelector((state: any) => state?.username?.isAuthenticated);
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [name, setName] = useState<string>('');
 
     const handleVisibility = () => {
         setIsVisible(!isVisible);
     };
 
-    const onSubmit = (data: any) => {
-        console.log('onSubmit data', data);
-        // dispatch(signUpUser(data));
-        // dispatch(setEmailAuth(data.email));
-        // dispatch(setUserAuth(data.username));
+    const onSubmit = async (credentials: Credentials) => {
+        try {
+            await dispatch(signUpUser(credentials));
+            setEmail("");
+            setPassword("");
+            setName("");
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -68,7 +75,9 @@ const SignUp = () => {
                                     id="email"
                                     {...register("email", { required: true })}
                                     placeholder='@ Your Email'
-                                    className={classNames('border-2', 'rounded-xl', 'py-1', 'px-2', 'block', 'w-full', 'text-base::placeholder', 'mb-2', 'border-paragraph-text', 'focus:border-red-600', { 'focus:border-red-600': errors.email }, { 'border-red-600': errors.email }, { 'focus:outline-red-600': errors.email })}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className={classNames('border-2', 'rounded-xl', 'py-1', 'px-2', 'block', 'w-full', 'text-base::placeholder', 'mb-4', 'border-paragraph-text', 'focus:border-red-600', { 'focus:border-red-600': errors.email }, { 'border-red-600': errors.email }, { 'focus:outline-red-600': errors.email })}
                                 />
                                 {errors.email && <span className='text-warning-text'>Please enter a valid email address.</span>}
                             </div>
@@ -78,7 +87,9 @@ const SignUp = () => {
                                     id="username"
                                     {...register("username", { required: true })}
                                     placeholder='Φ Your Name'
-                                    className={classNames('border-2', 'rounded-xl', 'py-1', 'px-2', 'block', 'w-full', 'text-base::placeholder', 'my-2', 'border-paragraph-text', 'focus:border-red-600', { 'focus:border-red-600': errors.email }, { 'border-red-600': errors.email }, { 'focus:outline-red-600': errors.email })}
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className={classNames('border-2', 'rounded-xl', 'py-1', 'px-2', 'block', 'w-full', 'text-base::placeholder', 'my-4', 'border-paragraph-text', 'focus:border-red-600', { 'focus:border-red-600': errors.email }, { 'border-red-600': errors.email }, { 'focus:outline-red-600': errors.email })}
                                 />
                                 {errors.email && <span className='text-warning-text'>Please enter your name.</span>}
                             </div>
@@ -97,7 +108,9 @@ const SignUp = () => {
                                         id="password"
                                         {...register("password", { required: true })}
                                         placeholder='θ Password'
-                                        className={classNames('border-2', 'rounded-xl', 'py-1', 'pl-2', "pr-12", 'block', 'w-full', 'text-base::placeholder', 'my-2', 'border-paragraph-text', 'focus:border-red-600', { 'focus:border-red-600': errors.password }, { 'border-red-600': errors.password }, { 'focus:outline-red-600': errors.password })}
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className={classNames('border-2', 'rounded-xl', 'py-1', 'pl-2', "pr-12", 'block', 'w-full', 'text-base::placeholder', 'my-4', 'border-paragraph-text', 'focus:border-red-600', { 'focus:border-red-600': errors.password }, { 'border-red-600': errors.password }, { 'focus:outline-red-600': errors.password })}
                                     />
                                 </div>
                                 {errors.password && <span className='text-warning-text'>Please enter a valid password.</span>}

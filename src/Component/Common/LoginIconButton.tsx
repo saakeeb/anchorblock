@@ -1,9 +1,5 @@
 import React from 'react';
-
-type LoginIconButtonProps = {
-    text: string,
-    img?: string | undefined,
-}
+import { LoginIconButtonProps } from './LoginIconButtonProps';
 
 const LoginIconButton = ({ text, img }: LoginIconButtonProps) => {
     return (

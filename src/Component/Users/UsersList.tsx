@@ -30,8 +30,8 @@ const UsersList: React.FC = (): JSX.Element => {
                 <thead className='bg-table-bg p-4'>
                     <tr >
                         <th className='p-4 text-table-name text-sm'>#ID</th>
-                        <th className='p-4 text-table-name text-sm'>USER</th>
-                        <th className='p-4 text-table-name text-sm'>EMAIL</th>
+                        <th className='p-4 text-table-name text-sm text-left'>USER</th>
+                        <th className='p-4 text-table-name text-sm text-left'>EMAIL</th>
                         <th className='p-4 text-table-name text-sm'>OPTIONS</th>
                     </tr>
                 </thead>
@@ -44,14 +44,14 @@ const UsersList: React.FC = (): JSX.Element => {
                                         {user.id}
                                     </td>
                                     <td className='p-4 text-sm text-table-name text-center font-semibold'> 
-                                        <div className='flex justify-center items-center gap-4'>
+                                        <div className='flex justify-start items-center gap-4'>
                                             <img key={user.avatar} src={user.avatar} alt={user.first_name} className='rounded-2xl w-16' />
                                             <p>
                                                 {user.first_name} {user.last_name}
                                             </p>
                                         </div>
                                     </td>
-                                    <td className='p-4 text-sm text-table-name text-center font-semibold'>
+                                    <td className='p-4 text-sm text-table-name font-semibold text-left'>
                                         <p>{user.email}</p>
 
                                     </td>
@@ -73,8 +73,7 @@ const UsersList: React.FC = (): JSX.Element => {
                             paginationButton.map(data => <li>
                                 <button
                                     aria-label={data.name}
-                                    className={`relative font-semibold block rounded bg-transparent py-1.5 px-3 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 ${apiPage === data.active ? 'bg-blue-500 text-white' : ''
-                                        }`}
+                                    className={`relative font-semibold block rounded py-1.5 px-3 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 ${apiPage === data.active ? 'bg-blue-500 text-white' : ''}`}
                                     onClick={() => setApiPage(data.number)}
                                 >
                                     { data.name }

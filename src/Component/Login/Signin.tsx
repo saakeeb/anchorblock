@@ -1,36 +1,39 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoginIconButton from '../Common/LoginIconButton';
 import googleIcon from "../../assets/google icon.svg";
 import appleIcon from "../../assets/apple icon.svg";
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames';
-import eyeIcon from '../../assets/eye icon.svg';
 import eyeOpenIcon from '../../assets/eye open icon.svg';
 import eyeCloseIcon from '../../assets/eye close icon.svg';
 import LoginSidebar from '../Sidebar/LoginSidebar';
-
-type FormValues = {
-    email: string;
-    password: string;
-};
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Credentials, signInUser } from '../Features/AuthSlice';
+import { SignInFormValues } from './SignInFormValues';
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const Signin = () => {
-    let isFetching = true;
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const isAuthenticated = useSelector((state: any) => state?.username?.isAuthenticated);
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     const handleVisibility = () => {
         setIsVisible(!isVisible);
-        console.log("clilllllllllllll");
     };
-    // const { register, handleSubmit } = useForm<FormValues>();
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+    const { register, handleSubmit, formState: { errors } } = useForm<SignInFormValues>();
 
-    const onSubmit = (data: any) => {
-        console.log('onSubmit data', data);
-        // dispatch(signUpUser(data));
-        // dispatch(setEmailAuth(data.email));
-        // dispatch(setUserAuth(data.username));
+    const onSubmit = async (credentials: Credentials) => {
+        try {
+            await dispatch(signInUser(credentials));
+            setEmail("");
+            setPassword("");
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -70,7 +73,9 @@ const Signin = () => {
                                     id="email"
                                     {...register("email", { required: true })}
                                     placeholder='@ Your Email'
-                                    className={classNames('border-2', 'rounded-xl', 'py-1', 'px-2', 'block', 'w-full', 'text-base::placeholder', 'mb-2', 'border-paragraph-text', 'focus:border-red-600', { 'focus:border-red-600': errors.email }, { 'border-red-600': errors.email }, { 'focus:outline-red-600': errors.email })}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className={classNames('border-2', 'rounded-xl', 'py-1', 'px-2', 'block', 'w-full', 'text-base::placeholder', 'mb-4', 'border-paragraph-text', 'focus:border-red-600', { 'focus:border-red-600': errors.email }, { 'border-red-600': errors.email }, { 'focus:outline-red-600': errors.email })}
                                 />
                                 {errors.email && <span className='text-warning-text'>Please enter a valid email address.</span>}
                             </div>
@@ -89,7 +94,9 @@ const Signin = () => {
                                         id="password"
                                         {...register("password", { required: true })}
                                         placeholder='Password'
-                                        className={classNames('border-2', 'rounded-xl', 'py-1', 'pl-2', "pr-12", 'block', 'w-full', 'text-base::placeholder', 'my-2', 'border-paragraph-text', 'focus:border-red-600', { 'focus:border-red-600': errors.password }, { 'border-red-600': errors.password }, { 'focus:outline-red-600': errors.password })}
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className={classNames('border-2', 'rounded-xl', 'py-1', 'pl-2', "pr-12", 'block', 'w-full', 'text-base::placeholder', 'my-4', 'border-paragraph-text', 'focus:border-red-600', { 'focus:border-red-600': errors.password }, { 'border-red-600': errors.password }, { 'focus:outline-red-600': errors.password })}
                                     />
                                 </div>
                                 {errors.password && <span className='text-warning-text'>Please enter a valid password.</span>}

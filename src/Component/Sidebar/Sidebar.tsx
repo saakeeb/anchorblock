@@ -2,15 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import SidebarLinkData from './SidebarLink';
 import NavigationLogo from './NavigationLogo';
-
-interface SidebarLink {
-    exact: boolean;
-    activeClassName: string;
-    to: string;
-    aria_label: string;
-    name: string;
-    icon?: string | undefined;
-}
+import { SidebarLinkProps } from './SidebarLinkProps';
 
 const Sidebar: React.FC = () => {
     return (
@@ -18,33 +10,8 @@ const Sidebar: React.FC = () => {
             <NavigationLogo />
             <p className='my-2 ml-3 text-link-text text-xs'>Pages</p>
             <nav className='flex flex-col'>
-                {/* <NavLink
-                    exact='true'
-                    activeclassname="active"
-                    to="/"
-                    aria-label='Link to home page dashboard'
-                    end
-                >
-                    Dashboard
-                </NavLink>
-                <NavLink
-                    exact='true'
-                    activeclassname="active"
-                    to="/users"
-                    aria-label='Link to users page'
-                >
-                    Users
-                </NavLink>
-                <NavLink
-                    exact='true'
-                    activeclassname="active"
-                    to="/sales"
-                    aria-label='Link to sales page'
-                >
-                    Sales
-                </NavLink> */}
                 {
-                    SidebarLinkData.map((data: SidebarLink) => (
+                    SidebarLinkData.map((data: SidebarLinkProps) => (
                         <NavLink
                             key={data.name}
                             to={data.to}

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import downArrowIcon from '../../assets/Down Arrow.svg';
 
 const DropdownButton = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState("English (UK)");
+    const [isOpen, setIsOpen] = useState<Boolean>(false);
+    const [selectedItem, setSelectedItem] = useState<string>("English (UK)");
 
     const handleItemClick = (item: string) => {
         setSelectedItem(item);
@@ -17,8 +17,6 @@ const DropdownButton = () => {
                     className="p-2 text-link-text focus:outline-none flex justify-center items-center"
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    {/* <div className='flex justify-center items-center'>
-                    </div> */}
                         <p className='w-24 mr-1'> {selectedItem} </p>
                         <img src={downArrowIcon} alt="Down arrow icon" />
                 </button>
